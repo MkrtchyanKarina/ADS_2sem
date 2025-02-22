@@ -32,13 +32,13 @@ class RefillTest(unittest.TestCase):
         expected_result = -1
 
         # when
-        t_start = time.perf_counter()
-        result = refill(d, m, n, s)
-        t_end = round(time.perf_counter() - t_start, 2)
+        start = time.perf_counter()
+        actual_result = refill(d, m, n, s)
+        actual_time = round(time.perf_counter() - start, 2)
 
         # then
-        self.assertEqual(result, expected_result)
-        self.assertLessEqual(t_end, expected_time)
+        self.assertEqual(actual_result, expected_result)
+        self.assertLessEqual(actual_time, expected_time)
 
     def test3(self, expected_time=2):
         # given
@@ -49,13 +49,14 @@ class RefillTest(unittest.TestCase):
         expected_result = 0
 
         # when
-        t_start = time.perf_counter()
-        result = refill(d, m, n, s)
-        t_end = round(time.perf_counter() - t_start, 2)
+        start = time.perf_counter()
+        actual_result = refill(d, m, n, s)
+        actual_time = round(time.perf_counter() - start, 2)
 
         # then
-        self.assertEqual(result, expected_result)
-        self.assertLessEqual(t_end, expected_time)
+        self.assertEqual(actual_result, expected_result)
+        self.assertLessEqual(actual_time, expected_time)
+
 
     def test4(self, expected_time=2):
         # given
@@ -65,12 +66,12 @@ class RefillTest(unittest.TestCase):
         s = [i for i in set(randint(1, d) for _ in range(d))]
 
         # when
-        t_start = time.perf_counter()
-        refill(d, m, n, s)
-        t_end = round(time.perf_counter() - t_start, 2)
+        start = time.perf_counter()
+        actual_result = refill(d, m, n, s)
+        actual_time = round(time.perf_counter() - start, 2)
 
         # then
-        self.assertLessEqual(t_end, expected_time)
+        self.assertLessEqual(actual_time, expected_time)
 
 
 if __name__ == "__main__":
