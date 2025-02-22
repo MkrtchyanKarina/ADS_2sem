@@ -67,7 +67,7 @@ class RefillTest(unittest.TestCase):
 
         # when
         start = time.perf_counter()
-        actual_result = refill(d, m, n, s)
+        refill(d, m, n, s)
         actual_time = round(time.perf_counter() - start, 2)
 
         # then
