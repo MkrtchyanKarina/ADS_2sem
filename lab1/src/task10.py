@@ -30,6 +30,7 @@ def alice_and_apples(apples_count: int, start_height: int, apples_data: list[tup
 4) Процесс поедания яблок можно визуализировать с помощью ступенчатой или столбчатой диаграммы.
 """
 
+
 if __name__ == "__main__":
     n, s = map(int, input().split(' '))
     m = []
