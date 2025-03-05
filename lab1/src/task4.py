@@ -1,24 +1,33 @@
 def intersection_of_segments(seg_count: int, segments: list[tuple]):
 
-    segments = [(segments[i][0], -segments[i][1]) for i in range(seg_count)]
-    segments = sorted(segments)
+    segments = [(segments[i][0], segments[i][1]) for i in range(seg_count)]
+    segments = sorted(segments, key=lambda x: x[1])
     dots = []
+    current_dot = float('-inf')
 
-    current_start, current_end = segments[0][0], -segments[0][1]
-    for j in range(1, seg_count):
-        segment = segments[j]
-        start, end = segment[0], -segment[1]
-        if current_start <= start <= current_end:
-            current_start = start
-            current_end = min(current_end, end)
-        else:
-            dots += [current_start]
-            current_start = start
-            current_end = end
-
-    dots += [current_start]
+    for segment in segments:
+        if segment[0] > current_dot:
+            current_dot = segment[1]
+            dots += [current_dot]
 
     return len(dots), dots
+
+""" 
+Сложность = O(n log(n))
+
+Другие возможные решения, которые подходят так же для пересекающихся отрезков:
+1) Представление отрезков в виде ребер графа, а концов - в виде вершин 
+   (алгоритм построения минимального вершинного покрытия)
+2) Дерево отрезков
+3) Перебрать все точки от минимальной до максимальной координаты
+
+Примеры использования алгоритма в реальной жизни:
+1) Сбор подписей
+2) Планирование доставки 
+3) Организация мероприятий
+
+Для отрицательных координат первоначальная точка будет минимальной, т.е. current_dot = float('-inf')
+"""
 
 
 if __name__ == "__main__":

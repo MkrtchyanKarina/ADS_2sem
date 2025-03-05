@@ -1,16 +1,3 @@
-"""
-3
-1 3
-2 5
-3 6
-------
-4
-4 7
-1 3
-2 5
-5 6
-"""
-
 import unittest
 import time
 from random import randint
@@ -38,7 +25,7 @@ class IntersectionTest(unittest.TestCase):
         # given
         n = 4
         s = [(4, 7), (1, 3), (2, 5), (5, 6)]
-        expected_result = (2, [2, 5])
+        expected_result = (2, [3, 6])
 
         # when
         start = time.perf_counter()
@@ -53,6 +40,19 @@ class IntersectionTest(unittest.TestCase):
         # given
         n = 100
         s = [tuple(sorted([randint(0, 10**9), randint(0, 10**9)])) for _ in range(n)]
+
+        # when
+        start = time.perf_counter()
+        actual_result = intersection_of_segments(n, s)
+        actual_time = round(time.perf_counter() - start, 2) - start
+
+        # then
+        self.assertLessEqual(actual_time, expected_time)
+
+    def test4(self, expected_time=2):  # Пример для отрицательных координат
+        # given
+        n = 100
+        s = [tuple(sorted([randint(-10**9, 10**9), randint(-10**9, 10**9)])) for _ in range(n)]
 
         # when
         start = time.perf_counter()
