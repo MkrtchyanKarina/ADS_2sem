@@ -1,5 +1,5 @@
+# Сбор подписей
 def intersection_of_segments(seg_count: int, segments: list[tuple]):
-
     segments = [(segments[i][0], segments[i][1]) for i in range(seg_count)]
     segments = sorted(segments, key=lambda x: x[1])
     dots = []

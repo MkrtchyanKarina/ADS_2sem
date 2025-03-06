@@ -1,3 +1,4 @@
+# Заправки
 def refill(all_distance: int, max_dist_without_ref: int, stops_count: int, stops_places: list[int]):
     if stops_count == 0 and max_dist_without_ref < all_distance:
         return -1
