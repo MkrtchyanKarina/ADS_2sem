@@ -1,54 +1,30 @@
 #  Задание №8 - Высота дерева
-
-class Node:
-    """ Класс узла дерева """
-    def __init__(self, key):
-        self.key = key
-        self.left_child = None
-        self.right_child = None
+from collections import deque
 
 
-class BinaryTree:
-    """Класс дерева с функцией нахождения высоты"""
+def calculate_height(count, nodes):
+    if len(nodes) > count or len(nodes) == 0:
+        return 0
 
-    def __init__(self, count: int, nodes: list):
+    queue = deque([0])
+    height = 0
 
-        self.count = count
-        self.nodes = nodes
-        self.parent = self.create_tree(1)
+    while queue:
+        height += 1
+        level_size = len(queue)
 
-    def create_tree(self, index: int):
-        key, left_child, right_child = self.nodes[index-1]
-        parent = Node(key)
-        if left_child != 0:
-            parent.left_child = self.create_tree(left_child)
-        if right_child != 0:
-            parent.right_child = self.create_tree(right_child)
-        return parent
+        for _ in range(level_size):
+            node_index = queue.popleft()
+            _, left, right = nodes[node_index]
 
-    # def result_in_order(self, parent):
-    #     if parent:
-    #         self.result_in_order(parent.left_child)
-    #         print(parent.key, end=" ")
-    #         self.result_in_order(parent.right_child)
-    #
-    # def print_tree(self):
-    #     self.result_in_order(self.parent)
+            if left != 0:
+                queue.append(left - 1)
+            if right != 0:
+                queue.append(right - 1)
 
-    def height(self, node):
-        if node is None:
-            return 0
-        else:
-            return max(self.height(node.left_child), self.height(node.right_child)) + 1
-
-    def print_height(self):
-        print(self.height(self.parent))
-
-
-
+    return height
 
 if __name__ == '__main__':
-    count = 6
-    nodes = [(-2, 0, 2), (8, 4, 3), (9, 0, 0), (3, 6, 5), (6, 0, 0), (0, 0, 0)]
-    tree = BinaryTree(count, nodes)
-    tree.print_height()
+    c = 6
+    n = [(-2, 0, 2), (8, 4, 3), (9, 0, 0), (3, 6, 5), (6, 0, 0), (0, 0, 0)]
+    print(calculate_height(c, n))
