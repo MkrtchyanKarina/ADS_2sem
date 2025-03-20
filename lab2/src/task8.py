@@ -37,9 +37,9 @@ def calculate_height(count, nodes):
             _, left, right = nodes[node_index]
 
             if left != 0:
-                queue.add(left - 1)  # Добавляем левый узел
+                queue.add(left - 1)
             if right != 0:
-                queue.add(right - 1)  # Добавляем правый узел
+                queue.add(right - 1)
 
     return height
 
