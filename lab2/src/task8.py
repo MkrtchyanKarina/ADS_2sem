@@ -1,28 +1,48 @@
 #  Задание №8 - Высота дерева
-from collections import deque
+class Queue:
+    def __init__(self):
+        self.items = []
+        self.head = 0
+
+    def is_empty(self):
+        return self.head >= len(self.items)
+
+    def add(self, item):
+        self.items.append(item)
+
+    def get(self):
+        if not self.is_empty():
+            item = self.items[self.head]
+            self.head += 1
+            return item
+
+    def size(self):
+        return len(self.items) - self.head
 
 
 def calculate_height(count, nodes):
     if len(nodes) > count or len(nodes) == 0:
         return 0
 
-    queue = deque([0])
+    queue = Queue()
+    queue.add(0)
     height = 0
 
-    while queue:
+    while not queue.is_empty():
         height += 1
-        level_size = len(queue)
+        level_size = queue.size()
 
         for _ in range(level_size):
-            node_index = queue.popleft()
+            node_index = queue.get()
             _, left, right = nodes[node_index]
 
             if left != 0:
-                queue.append(left - 1)
+                queue.add(left - 1)  # Добавляем левый узел
             if right != 0:
-                queue.append(right - 1)
+                queue.add(right - 1)  # Добавляем правый узел
 
     return height
+
 
 if __name__ == '__main__':
     c = 6
