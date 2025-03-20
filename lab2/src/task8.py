@@ -21,7 +21,7 @@ class Queue:
 
 
 def calculate_height(count, nodes):
-    if len(nodes) > count or len(nodes) == 0:
+    if len(nodes) != count or len(nodes) == 0:
         return 0
 
     queue = Queue()
