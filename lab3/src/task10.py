@@ -1,62 +1,37 @@
-class Queue:
-    def __init__(self):
-        self.items = []
-        self.head = 0
+"""
+Как будет определяться временная и пространственная сложность алгоритма, и какие факторы будут влиять на эти оценки?
 
-    def is_empty(self):
-        return self.head >= len(self.items)
-
-    def add(self, item):
-        self.items.extend(item)
-
-    def get(self):
-        if not self.is_empty():
-            item = self.items[self.head]
-            self.head += 1
-            return item
-
-    def size(self):
-        return len(self.items) - self.head
+Алгоритм Беллмана-Форда имеет временную сложность O(V*E) и пространственную сложность O(V). 
+"""
 
 
-def bellman_ford(vertices_count, edges_count, data, root):
-    graph = {key: [] for key in range(1, vertices_count + 1)}
-    for edge in range(edges_count):
-        graph[data[edge][0]].append(data[edge])
-
+def bellman_ford(vertices_count: int, edges_count: int, data: list[tuple[int, int, int]], root: int) -> list:
+    # Инициализация расстояний до всех вершин
     distances = [float('inf')] * (vertices_count + 1)
-    distances1 = dijkstra_algorithm(graph.copy(), root, distances)
-    distances2 = dijkstra_algorithm(graph.copy(), root, distances1.copy())
+    distances[root] = 0  # Расстояние до начальной вершины равно 0
 
-    distances_result = [""] * vertices_count
+    # Основной цикл алгоритма Беллмана-Форда
+    for _ in range(vertices_count - 1):
+        for u, v, weight in data:
+            if distances[u] != float('inf') and distances[u] + weight < distances[v]:
+                distances[v] = distances[u] + weight
+
+    # Проверка на наличие отрицательных циклов
+    for u, v, weight in data:
+        if distances[u] != float('inf') and distances[u] + weight < distances[v]:
+            distances[v] = float('-inf')  # Устанавливаем значение для вершин в отрицательном цикле
+
+    # Формирование результата
+    result = []
     for i in range(1, vertices_count + 1):
-        if distances2[i] != distances1[i]:
-            distances_result[i-1] = "-"
+        if distances[i] == float('-inf'):
+            result.append("-")  # Отрицательный цикл
+        elif distances[i] == float("inf"):
+            result.append("*")  # Нет пути
         else:
-            distances_result[i-1] = "*" if distances1[i] == float("inf") else str(distances1[i])
-    return distances_result
+            result.append(str(distances[i]))  # Кратчайшее расстояние
 
-
-
-def dijkstra_algorithm(graph: dict, root, distances):
-    queue = Queue()
-    visited = set()
-
-    queue.add(graph[root])
-    visited.add(root)
-
-    distances[root] = 0
-
-    while not queue.is_empty():
-        for i in range(queue.size()):
-            edge = queue.get()
-            start, end, weight = edge
-            distances[end] = min(distances[end], weight+distances[start])
-            if end not in visited:
-                queue.add(graph[end])
-                visited.add(end)
-    return distances
-
+    return result
 
 
 if __name__ == "__main__":
