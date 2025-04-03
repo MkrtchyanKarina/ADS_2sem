@@ -1,35 +1,25 @@
-"""
-Как будет определяться временная и пространственная сложность алгоритма, и какие факторы будут влиять на эти оценки?
-
-Алгоритм Беллмана-Форда имеет временную сложность O(V*E) и пространственную сложность O(V). 
-"""
-
-
 def bellman_ford(vertices_count: int, edges_count: int, data: list[tuple[int, int, int]], root: int) -> list:
-    # Инициализация расстояний до всех вершин
     distances = [float('inf')] * (vertices_count + 1)
-    distances[root] = 0  # Расстояние до начальной вершины равно 0
+    distances[root] = 0
 
-    # Основной цикл алгоритма Беллмана-Форда
     for _ in range(vertices_count - 1):
-        for u, v, weight in data:
-            if distances[u] != float('inf') and distances[u] + weight < distances[v]:
-                distances[v] = distances[u] + weight
+        for v1, v2, weight in data:
+            if distances[v1] != float('inf') and distances[v2] > distances[v1] + weight:
+                distances[v2] = distances[v1] + weight
 
-    # Проверка на наличие отрицательных циклов
-    for u, v, weight in data:
-        if distances[u] != float('inf') and distances[u] + weight < distances[v]:
-            distances[v] = float('-inf')  # Устанавливаем значение для вершин в отрицательном цикле
+    for v1, v2, weight in data:
+        if distances[v1] != float('inf') and distances[v2] > distances[v1] + weight:
+            distances[v2] = float('-inf')
 
     # Формирование результата
     result = []
     for i in range(1, vertices_count + 1):
         if distances[i] == float('-inf'):
-            result.append("-")  # Отрицательный цикл
+            result.append("-")
         elif distances[i] == float("inf"):
-            result.append("*")  # Нет пути
+            result.append("*")
         else:
-            result.append(str(distances[i]))  # Кратчайшее расстояние
+            result.append(str(distances[i]))
 
     return result
 
