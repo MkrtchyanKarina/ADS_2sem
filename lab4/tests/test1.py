@@ -8,6 +8,7 @@ from lab4.src.task1 import naive_string_search
 class TestNaiveStringSearch(unittest.TestCase):
 
     def test_basic_cases(self):
+        self.assertEqual(naive_string_search("aaa", "aaaa"), (2, [1, 2]))
         self.assertEqual(naive_string_search("aba", "abaCaba"), (2, [1, 5]))
         self.assertEqual(naive_string_search("abc", "ababcabc"), (2, [3, 6]))
         self.assertEqual(naive_string_search("xyz", "abcdefg"), (0, []))
@@ -39,7 +40,6 @@ class TestNaiveStringSearch(unittest.TestCase):
         t_end = round(time.perf_counter() - t_start, 2)
         actual_memory = round(psutil.Process().memory_info().rss / 1024 ** 2, 2)
 
-        # then
         self.assertLessEqual(t_end, expected_time)
         self.assertLessEqual(actual_memory, expected_memory)
 
