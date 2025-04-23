@@ -7,6 +7,10 @@ import unittest
 
 
 class TestBuildPrefix(unittest.TestCase):
+    @classmethod
+    def setUp(cls):
+        cls.expected_time = 2
+        cls.expected_memory = 256
 
     def test_empty_string(self):
         self.assertEqual(build_prefix(""), [])
@@ -26,14 +30,14 @@ class TestBuildPrefix(unittest.TestCase):
     def test_longer_string_with_repeats(self):
         self.assertEqual(build_prefix("abababca"), [0, 0, 1, 2, 3, 4, 0, 1])
 
-    def test_time_memory(self, expected_time=2, expected_memory=256):
+    def test_time_memory(self):
         t_start = time.perf_counter()
         result = build_prefix("".join(chr(randint(97, 122)) for _ in range(10**6)))
         t_end = round(time.perf_counter() - t_start, 2)
         actual_memory = round(psutil.Process().memory_info().rss / 1024 ** 2, 2)
 
-        self.assertLessEqual(t_end, expected_time)
-        self.assertLessEqual(actual_memory, expected_memory)
+        self.assertLessEqual(t_end, self.expected_time)
+        self.assertLessEqual(actual_memory, self.expected_memory)
 
 
 if __name__ == '__main__':

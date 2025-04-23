@@ -8,6 +8,11 @@ from lab3.src.task10 import bellman_ford
 
 
 class TestBellmanFord(unittest.TestCase):
+    @classmethod
+    def setUp(cls):
+        cls. expected_time = 10
+        cls.expected_memory = 512
+
     def test0(self):
         graph = []
         result = bellman_ford(2, 0, graph, 1)
@@ -44,7 +49,7 @@ class TestBellmanFord(unittest.TestCase):
         self.assertEqual(result, ['0', '1', '*', '*'])
 
 
-    def test5(self, expected_time=10, expected_memory=512):
+    def test5(self):
         n = 10**3
         m = 10**4
         graph = []
@@ -61,8 +66,8 @@ class TestBellmanFord(unittest.TestCase):
         actual_memory = round(psutil.Process().memory_info().rss / 1024 ** 2, 2)
 
         # then
-        self.assertLessEqual(t_end, expected_time)
-        self.assertLessEqual(actual_memory, expected_memory)
+        self.assertLessEqual(t_end, self.expected_time)
+        self.assertLessEqual(actual_memory, self.expected_memory)
 
 
 

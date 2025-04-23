@@ -7,7 +7,12 @@ from lab1.src.task10 import alice_and_apples
 
 
 class ApplesTest(unittest.TestCase):
-    def test1(self, expected_time=2, expected_memory=256):
+    @classmethod
+    def setUp(cls):
+        cls.expected_time = 2
+        cls.expected_memory = 256
+
+    def test1(self):
         # given
         n = 3
         s = 5
@@ -23,11 +28,11 @@ class ApplesTest(unittest.TestCase):
 
         # then
         self.assertEqual(actual_result, expected_result)
-        self.assertLessEqual(actual_memory, expected_memory)
-        self.assertLessEqual(actual_time, expected_time)
+        self.assertLessEqual(actual_memory, self.expected_memory)
+        self.assertLessEqual(actual_time, self.expected_time)
 
 
-    def test2(self, expected_time=2, expected_memory=256):
+    def test2(self):
         # given
         n = 3
         s = 5
@@ -42,11 +47,11 @@ class ApplesTest(unittest.TestCase):
 
         # then
         self.assertEqual(actual_result, expected_result)
-        self.assertLessEqual(actual_memory, expected_memory)
-        self.assertLessEqual(actual_time, expected_time)
+        self.assertLessEqual(actual_memory, self.expected_memory)
+        self.assertLessEqual(actual_time, self.expected_time)
 
 
-    def test3(self, expected_time=2, expected_memory=256):
+    def test3(self):
         # given
         n = 1000
         s = randint(1, 1000)
@@ -59,8 +64,8 @@ class ApplesTest(unittest.TestCase):
         actual_memory = round(psutil.Process().memory_info().rss / 1024 ** 2, 2)
 
         # then
-        self.assertLessEqual(actual_memory, expected_memory)
-        self.assertLessEqual(actual_time, expected_time)
+        self.assertLessEqual(actual_memory, self.expected_memory)
+        self.assertLessEqual(actual_time, self.expected_time)
 
 
 if __name__ == "__main__":

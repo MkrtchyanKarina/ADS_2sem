@@ -6,7 +6,11 @@ from lab1.src.task2 import refill
 
 
 class RefillTest(unittest.TestCase):
-    def test1(self, expected_time=2):  # емкость бака = 0 -> никуда не можем доехать
+    @classmethod
+    def setUp(cls):
+        cls.expected_time = 2
+
+    def test1(self):  # емкость бака = 0 -> никуда не можем доехать
         # given
         d = 950
         m = 0
@@ -21,9 +25,9 @@ class RefillTest(unittest.TestCase):
 
         # then
         self.assertEqual(result, expected_result)
-        self.assertLessEqual(t_end, expected_time)
+        self.assertLessEqual(t_end, self.expected_time)
 
-    def test2(self, expected_time=2):  # нет заправок и расстояние слишком большое
+    def test2(self):  # нет заправок и расстояние слишком большое
         # given
         d = 950
         m = 400
@@ -38,9 +42,9 @@ class RefillTest(unittest.TestCase):
 
         # then
         self.assertEqual(result, expected_result)
-        self.assertLessEqual(t_end, expected_time)
+        self.assertLessEqual(t_end, self.expected_time)
 
-    def test3(self, expected_time=2):  # нет заправок, но нам хватит одного бака
+    def test3(self):  # нет заправок, но нам хватит одного бака
         # given
         d = 367
         m = 400
@@ -55,9 +59,9 @@ class RefillTest(unittest.TestCase):
 
         # then
         self.assertEqual(result, expected_result)
-        self.assertLessEqual(t_end, expected_time)
+        self.assertLessEqual(t_end, self.expected_time)
 
-    def test4(self, expected_time=2):
+    def test4(self):
         # given
         d = 950
         m = 400
@@ -72,9 +76,9 @@ class RefillTest(unittest.TestCase):
 
         # then
         self.assertEqual(result, expected_result)
-        self.assertLessEqual(t_end, expected_time)
+        self.assertLessEqual(t_end, self.expected_time)
 
-    def test5(self, expected_time=2):
+    def test5(self):
         # given
         d = 10
         m = 3
@@ -89,9 +93,9 @@ class RefillTest(unittest.TestCase):
 
         # then
         self.assertEqual(actual_result, expected_result)
-        self.assertLessEqual(actual_time, expected_time)
+        self.assertLessEqual(actual_time, self.expected_time)
 
-    def test6(self, expected_time=2):
+    def test6(self):
         # given
         d = 200
         m = 250
@@ -106,10 +110,10 @@ class RefillTest(unittest.TestCase):
 
         # then
         self.assertEqual(actual_result, expected_result)
-        self.assertLessEqual(actual_time, expected_time)
+        self.assertLessEqual(actual_time, self.expected_time)
 
 
-    def test7(self, expected_time=2):
+    def test7(self):
         # given
         d = 10**5
         m = 400
@@ -122,7 +126,7 @@ class RefillTest(unittest.TestCase):
         actual_time = round(time.perf_counter() - start, 2)
 
         # then
-        self.assertLessEqual(actual_time, expected_time)
+        self.assertLessEqual(actual_time, self.expected_time)
 
 
 if __name__ == "__main__":

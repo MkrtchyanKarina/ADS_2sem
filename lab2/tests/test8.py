@@ -7,7 +7,12 @@ from lab2.src.task8 import calculate_height
 
 
 class TestHeightBFS(unittest.TestCase):
-    def test0(self, expected_time=2, expected_memory=256):
+    @classmethod
+    def setUp(cls):
+        cls.expected_time = 2
+        cls.expected_memory = 256
+
+    def test0(self):
         # given
         count = 0
         nodes = []
@@ -21,10 +26,10 @@ class TestHeightBFS(unittest.TestCase):
 
         # then
         self.assertEqual(result, expected_result)
-        self.assertLessEqual(t_end, expected_time)
-        self.assertLessEqual(actual_memory, expected_memory)
+        self.assertLessEqual(t_end, self.expected_time)
+        self.assertLessEqual(actual_memory, self.expected_memory)
 
-    def test1(self, expected_time=2, expected_memory=256):
+    def test1(self):
         # given
         count = 1
         nodes = [(1, 0, 0)]
@@ -38,10 +43,10 @@ class TestHeightBFS(unittest.TestCase):
 
         # then
         self.assertEqual(result, expected_result)
-        self.assertLessEqual(t_end, expected_time)
-        self.assertLessEqual(actual_memory, expected_memory)
+        self.assertLessEqual(t_end, self.expected_time)
+        self.assertLessEqual(actual_memory, self.expected_memory)
 
-    def test2(self, expected_time=2, expected_memory=256):
+    def test2(self):
         # given
         nodes = [
             (1, 2, 3),  # Узел 1 с левым 2 и правым 3
@@ -61,10 +66,10 @@ class TestHeightBFS(unittest.TestCase):
 
         # then
         self.assertEqual(result, expected_result)
-        self.assertLessEqual(t_end, expected_time)
-        self.assertLessEqual(actual_memory, expected_memory)
+        self.assertLessEqual(t_end, self.expected_time)
+        self.assertLessEqual(actual_memory, self.expected_memory)
 
-    def test3(self, expected_time=2, expected_memory=256):
+    def test3(self):
         # given
         nodes = [
             (1, 2, 3),  # Узел 1 с левым 2 и правым 3
@@ -83,10 +88,10 @@ class TestHeightBFS(unittest.TestCase):
 
         # then
         self.assertEqual(result, expected_result)
-        self.assertLessEqual(t_end, expected_time)
-        self.assertLessEqual(actual_memory, expected_memory)
+        self.assertLessEqual(t_end, self.expected_time)
+        self.assertLessEqual(actual_memory, self.expected_memory)
 
-    def test4(self, expected_time=2, expected_memory=256):
+    def test4(self):
         # given
         count = 3
         nodes = [
@@ -104,12 +109,12 @@ class TestHeightBFS(unittest.TestCase):
 
         # then
         self.assertEqual(result, expected_result)
-        self.assertLessEqual(t_end, expected_time)
-        self.assertLessEqual(actual_memory, expected_memory)
+        self.assertLessEqual(t_end, self.expected_time)
+        self.assertLessEqual(actual_memory, self.expected_memory)
 
 
 
-    def test5(self, expected_time=2, expected_memory=256):
+    def test5(self):
         # given
         count = 2*10**5
         nodes = []
@@ -128,8 +133,8 @@ class TestHeightBFS(unittest.TestCase):
 
         # then
         self.assertEqual(result, expected_result)
-        self.assertLessEqual(t_end, expected_time)
-        self.assertLessEqual(actual_memory, expected_memory)
+        self.assertLessEqual(t_end, self.expected_time)
+        self.assertLessEqual(actual_memory, self.expected_memory)
 
 
 
